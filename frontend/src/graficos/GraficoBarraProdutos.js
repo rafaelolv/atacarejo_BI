@@ -12,13 +12,11 @@ import { Bar } from 'react-chartjs-2';
 
 import style from '../style/GraficosDashboard.module.css';
 
+
 const GraficoBarraProdutos = ({ produtosCompraVenda }) => {
 
     const [produtosMes, setProdutosMes] = useState([]);
    
-    console.log(Array.isArray(produtosCompraVenda));
-    // console.log(Object.values(produtosCompraVenda));
-
     const options = {
         responsive: true,
         plugins: {
@@ -27,7 +25,7 @@ const GraficoBarraProdutos = ({ produtosCompraVenda }) => {
             },
             title: {
                 display: true,
-                text: 'Chart.js Bar Chart',
+                text: 'Valores de compra e venda dos produtos no mês!',
             },
         },
         scales: {
@@ -50,7 +48,7 @@ const GraficoBarraProdutos = ({ produtosCompraVenda }) => {
         datasets: [
             {
                 label: 'Valor de compra',
-                data: produtosCompraVenda.map((obj) => {
+                data: produtosCompraVenda && produtosCompraVenda.map((obj) => {
                     return obj.valorCompra;
                 }),
 
@@ -58,7 +56,7 @@ const GraficoBarraProdutos = ({ produtosCompraVenda }) => {
             },
             {
                 label: 'Valor de venda',
-                data: produtosCompraVenda.map((obj) => {
+                data: produtosCompraVenda && produtosCompraVenda.map((obj) => {
                     return obj.valorVenda;
                 }),
 

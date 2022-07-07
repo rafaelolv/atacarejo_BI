@@ -1,14 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import GraficoBarraTripla from '../components/GraficoBarraTripla';
 import Placar from '../components/Placar';
 import GraficoBarraProdutos from './../graficos/GraficoBarraProdutos';
-// import GraficoProdutosLucroAbsolutoRelativo from './../graficos/GraficoBarraProdutos';
+import GraficoProdutosLucroAbsolutoRelativo from './../graficos/GraficoProdutosLucroAbsolutoRelativo';
 import MultiChartBarLine from './../graficos/MultiChartBarLine';
 
 // import { retrieveRelatoriosSatisfacao } from "../actions/relatorioSatisfacaoAction";
-import { retrieveAllProducts } from './../actions/produtoAction';
+import { retrieveAllProducts, generateAbsoluteValuesByMonth } from './../actions/produtoAction';
 
 import style from '../style/Dashboard.module.css';
 import styleGraficos from '../style/GraficosDashboard.module.css';
@@ -16,15 +16,16 @@ import styleGraficos from '../style/GraficosDashboard.module.css';
 
 const Dashboard = () => {
 
+    const [produtos, setProdutos] = useState([]);
+    const [produtosValorAbsoluto, setProdutosValorAbsoluto] = useState([]);
     // const relatorios = useSelector(state => state.relatorios);
-    const produtos = useSelector(state => state.produtos);
-    console.log("e isso aqui?? " + produtos);
-    console.log(Object.values(produtos));
+    const listaProdutos = useSelector(state => state.produtos);
     const dispatch = useDispatch();
     
     useEffect(() => {
         console.log("-------Entrou no useEffect de produto??????");
         dispatch(retrieveAllProducts());
+        setProdutos(listaProdutos);
     }, []);
     
 
@@ -37,10 +38,7 @@ const Dashboard = () => {
                 <section className={style.sectionProdutos}>
                     <Placar />
                     <GraficoBarraProdutos produtosCompraVenda={produtos} />
-
-                    {/* <div className={styleGraficos.divGraficoProdutosLucroAbsolutoRelativo}>
-                        <GraficoProdutosLucroAbsolutoRelativo />
-                    </div> */}
+                    <GraficoProdutosLucroAbsolutoRelativo mesesProdutos={produtos} />
                     <MultiChartBarLine />
                 </section>
                 <section className={style.sectionAvaliacoes}>

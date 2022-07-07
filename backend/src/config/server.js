@@ -15,7 +15,13 @@ app.use(express.json()); /* bodyParser.json() is deprecated */
 app.use(express.urlencoded({ extended: true })); /* bodyParser.urlencoded() is deprecated */
 
 const db = require("../models");
-db.sequelize.sync();
+db.sequelize.sync()
+  .then(() => {
+    console.log("Synced db.");
+  })
+  .catch((err) => {
+    console.log("Failed to sync db: " + err.message);
+  });
 // // drop the table if it already exists
 // db.sequelize.sync({ force: true }).then(() => {
 //   console.log("Drop and re-sync db.");
@@ -25,7 +31,7 @@ app.get("/", (req, res) => {
   res.json({ message: "Welcome to Atacarejo BI application." });
 });
 
-// require("../routes/pratoRoutes")(app);
+require("../routes/produtoRoutes")(app);
 
 
 const PORT = process.env.PORT || 8080;
