@@ -24,8 +24,8 @@ import vendaProdutos from './../dadosSimulados/produtos';
 // 
 export const retrieveAllProducts = () => async (dispatch) => {
     try {
-        const res = await JSON.parse(vendaProdutos);
-        const { meses } = res;
+        // const res = await JSON.parse(vendaProdutos);
+        // const { meses } = res;
         let arrayValoresGerados = gerarValoresDefault();
 
         console.log("testeArray!");
@@ -37,15 +37,15 @@ export const retrieveAllProducts = () => async (dispatch) => {
         console.log("--- + ");
         console.log(Object.values(arrayValoresGerados));
         
-        let allProducts = [];
+        // let allProducts = [];
         
-        meses[0].categorias.forEach((categoria) => {            
-            allProducts = [...allProducts, ...categoria.produtos];            
-        });
+        // meses[0].categorias.forEach((categoria) => {            
+        //     allProducts = [...allProducts, ...categoria.produtos];            
+        // });
 
         dispatch({
             type: ALL_PRODUCTS,
-            payload: allProducts,
+            payload: arrayValoresGerados,
         });
     } catch (err) {
         console.log("Erro no access data " + err)
@@ -55,10 +55,11 @@ export const retrieveAllProducts = () => async (dispatch) => {
 // 
 export const generateAbsoluteValuesByMonth = (mesesProdutos) => {
     try {
-        let productAbsoluteValues = []; 
+        let productAbsoluteValues = [];
+        const arrayProductAbsoluteValues = mesesProdutos.slice(0, 8);
 
-        mesesProdutos.forEach((produto) => {
-                productAbsoluteValues = [...productAbsoluteValues, {nome: produto.produto, valorAbsoluto: produto.valorVenda - produto.valorCompra }];                  
+        arrayProductAbsoluteValues.forEach((produto) => {
+                productAbsoluteValues = [...productAbsoluteValues, {nome: produto.nome, valorAbsoluto: produto.valorVenda - produto.valorCompra }];                  
         });
         return productAbsoluteValues;
     } catch (err) {
@@ -99,23 +100,21 @@ const gerarValoresDefault = () => {
     const meses30 = [10];
     // Nesse caso eu estou gerando as datas, mas em um json gerado, as datas já vao vim, entao tenho que ver aqui outro esquema para pegar essa datas que já irão vim no json gerado.
     const d = new Date();
-    console.log("teste data " + d.getMonth() + " " + d.getDate());
     let dia = 1;
     let mes = 9;
     d.setDate(dia)
     d.setMonth(mes);
-    console.log("teste dataa2 - " + d.getMonth() + " " + d.getDate());
 
     let produtos = [
-        {data: d, valorTotal: '', nome: "cerveja", valorVenda: 8, valorCompra: 6, categoriaNome: "Bebidas", metaMes: 25.000 }, 
-        {data: d, valorTotal: '', nome: "agua", valorVenda: 8, valorCompra: 6, categoriaNome: "Bebidas", metaMes: 25.000 },
-        {data: d, valorTotal: '', nome: "energetico", valorVenda: 11, valorCompra: 6, categoriaNome: "Bebidas", metaMes: 25.000 },
-        {data: d, valorTotal: '', nome: "feijão", valorVenda: 12, valorCompra: 6, categoriaNome: "Alimentos", metaMes: 150.000 },
-        {data: d, valorTotal: '', nome: "arroz", valorVenda: 8, valorCompra: 5, categoriaNome: "Alimentos", metaMes: 150.000 },
-        {data: d, valorTotal: '', nome: "macarrão", valorVenda: 8, valorCompra: 3, categoriaNome: "Alimentos", metaMes: 150.000 },
-        {data: d, valorTotal: '', nome: "sabão", valorVenda: 8, valorCompra: 6, categoriaNome: "Limpeza", metaMes: 10.000 },
-        {data: d, valorTotal: '', nome: "desinfetante", valorVenda: 7, valorCompra: 3, categoriaNome: "Limpeza", metaMes: 10.000 },
-        {data: d, valorTotal: '', nome: "água sanitária", valorVenda: 8, valorCompra: 6, categoriaNome: "Limpeza", metaMes: 10.000 },
+        {data: d, valorTotal: '', nome: "cerveja", valorVenda: 11, valorCompra: 4, categoriaNome: "Bebidas", metaMes: 36000 },
+        {data: d, valorTotal: '', nome: "agua", valorVenda: 7, valorCompra: 2, categoriaNome: "Bebidas", metaMes: 36000 },
+        {data: d, valorTotal: '', nome: "energetico", valorVenda: 10, valorCompra: 5, categoriaNome: "Bebidas", metaMes: 36000 },
+        {data: d, valorTotal: '', nome: "feijão", valorVenda: 12, valorCompra: 6, categoriaNome: "Alimentos", metaMes: 20000 },
+        {data: d, valorTotal: '', nome: "arroz", valorVenda: 7, valorCompra: 3, categoriaNome: "Alimentos", metaMes: 20000 },
+        {data: d, valorTotal: '', nome: "macarrão", valorVenda: 7, valorCompra: 3, categoriaNome: "Alimentos", metaMes: 20000 },
+        {data: d, valorTotal: '', nome: "sabão", valorVenda: 6, valorCompra: 3, categoriaNome: "Limpeza", metaMes: 7000 },
+        {data: d, valorTotal: '', nome: "desinfetante", valorVenda: 9, valorCompra: 4, categoriaNome: "Limpeza", metaMes: 7000 },
+        {data: d, valorTotal: '', nome: "água sanitária", valorVenda: 8, valorCompra: 3, categoriaNome: "Limpeza", metaMes: 7000 },
     ];
 
     for (let i = 0; i <= 91; i++) {
@@ -143,10 +142,25 @@ const gerarValoresDefault = () => {
 
         d.setDate(dia++);
     }
-    console.log("produtosGerados ");
+    console.log("**** produtosGerados ");
     console.log(Object.values(produtosGerados));
 
     return produtosGerados;
+}
+
+// 
+export const getMes = () => {
+
+}
+
+// 
+export const getMetaMes = (mes, lista) => {
+    console.log("------------ getMetaMes " + " - " + mes + " - " + lista);
+    let obj = lista.find(element => {
+        return element.data.getMonth() == mes;
+    });
+    console.log("-----------obj.metaMes " + obj + " " + obj.metaMes + " " + obj.nome);
+    return obj.metaMes;
 }
 
 

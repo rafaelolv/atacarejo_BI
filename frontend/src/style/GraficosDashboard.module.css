@@ -60,3 +60,37 @@
     height: 480px;
     width: 70%;
 }
+
+.divGraficoDoughnutAndamentoPorcentagem {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid rgb(13, 13, 14);
+    height: 480px;
+    width: 30%;
+    padding-bottom: 40px;
+}
+
+.divVisorPorcentagemCentroDoughnut {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    left: 153px;
+    top: 30px;
+    /* align-items: center; */
+    /* justify-content: center; */
+    border: 2px solid red;
+}
+
+.divGraficoDoughnutAndamentoPorcentagem > canvas {
+   position: relative;
+   right: 14px;
+   bottom: 6px;
+}
+
+/* canvas:nth-child(2) {
+    position: relative;
+    left: -11.8437px;
+    height: 812px;
+} */

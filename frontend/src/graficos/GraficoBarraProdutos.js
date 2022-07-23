@@ -39,8 +39,10 @@ const GraficoBarraProdutos = ({ produtosCompraVenda }) => {
         },
     };
 
-    const labels = produtosCompraVenda && produtosCompraVenda.map((obj) => {
-        return obj.produto;
+    const arrayCompraEVenda = produtosCompraVenda.slice(0, 8);
+
+    const labels = arrayCompraEVenda && arrayCompraEVenda.map((obj) => {
+        return obj.nome;
     })
 
     const data = {
@@ -48,7 +50,7 @@ const GraficoBarraProdutos = ({ produtosCompraVenda }) => {
         datasets: [
             {
                 label: 'Valor de compra',
-                data: produtosCompraVenda && produtosCompraVenda.map((obj) => {
+                data: arrayCompraEVenda && arrayCompraEVenda.map((obj) => {
                     return obj.valorCompra;
                 }),
 
@@ -56,7 +58,7 @@ const GraficoBarraProdutos = ({ produtosCompraVenda }) => {
             },
             {
                 label: 'Valor de venda',
-                data: produtosCompraVenda && produtosCompraVenda.map((obj) => {
+                data: arrayCompraEVenda && arrayCompraEVenda.map((obj) => {
                     return obj.valorVenda;
                 }),
 

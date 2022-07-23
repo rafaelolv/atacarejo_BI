@@ -23,9 +23,11 @@ const Dashboard = () => {
     const dispatch = useDispatch();
     
     useEffect(() => {
-        console.log("-------Entrou no useEffect de produto??????");
+        console.log("-------Entrou no useEffect de produto?????????");
         dispatch(retrieveAllProducts());
+        console.log("- - -useEffect de produto? " + listaProdutos);
         setProdutos(listaProdutos);
+        console.log("produtos " + produtos);
     }, []);
     
 
@@ -37,9 +39,9 @@ const Dashboard = () => {
             <div>
                 <section className={style.sectionProdutos}>
                     <Placar />
-                    <GraficoBarraProdutos produtosCompraVenda={produtos} />
-                    <GraficoProdutosLucroAbsolutoRelativo mesesProdutos={produtos} />
-                    <MultiChartBarLine />
+                    <GraficoBarraProdutos produtosCompraVenda={listaProdutos} />
+                    <GraficoProdutosLucroAbsolutoRelativo mesesProdutos={listaProdutos} />
+                    <MultiChartBarLine allProducts={listaProdutos} />
                 </section>
                 <section className={style.sectionAvaliacoes}>
                     <div>Algum grafico relacionado a relatoriosatisfacao</div>
